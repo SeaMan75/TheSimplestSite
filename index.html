@@ -1,0 +1,175 @@
+<?php  
+session_start();  
+?> 
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Список услуг</title>
+  
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic|Playfair+Display:400,700&subset=latin,cyrillic">
+  
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
+  
+    <link rel="stylesheet" type="text/css" href="style.css">
+  
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
+    <script src="search_ajax.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <div class="cont-image">
+        <a href="" class="image" src="images/logo.jpg">Престиж</a>
+      </div>
+      <div id="current_date_time_block2"></div>
+          <script type="text/javascript">
+            function zero_first_format(value)
+            {
+                if (value < 10)
+                {
+                    value='0'+value;
+                }
+                return value;
+            }
+
+            /* функция получения текущей даты и времени */
+            function date_time()
+            {
+                var current_datetime = new Date();
+                var day = zero_first_format(current_datetime.getDate());
+                var month = zero_first_format(current_datetime.getMonth()+1);
+                var year = current_datetime.getFullYear();
+                var hours = zero_first_format(current_datetime.getHours());
+                var minutes = zero_first_format(current_datetime.getMinutes());
+                var seconds = zero_first_format(current_datetime.getSeconds());
+
+                return day+"."+month+"."+year+" "+hours+":"+minutes+":"+seconds;
+            }
+            setInterval(function() {
+               document.getElementById('current_date_time_block2').innerHTML = date_time();
+            }, 1000);
+          </script>
+
+      <div class="nav-toggle"><span></span></div>
+      <form action="" method="post" id="search_form">
+        <input type="text" placeholder="Поиск по сайту..." name = "search_what" />
+        <input type="button" id = "search_button" value="Искать"/>
+      </form>
+      <ul id="menu">
+        <li>
+          <?php
+            if (empty($_SESSION["login"])) 
+            {  
+              echo '<a href="page2.html">Регистрация</a>';  
+            }  
+            else
+              echo $_SESSION["login"];  
+          ?>
+          </li>
+          <li>
+            <?php
+            if (empty($_SESSION["login"])) 
+            {  
+              echo '<a href="page3.html">Вход</a>';  
+            }  
+            else
+            {
+              echo '<a href="page3.html">Выход</a>';  
+            }
+            ?>
+            </li>
+        <li><a href="about.html">О нас</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+    <!--TODO: -->
+    <div class="blocks-list">
+      <div class="cont-image"><a href=""><img class="image" src="images/logo.jpg"></a></div>
+      <div id="css_main_menu" style="width:600px;height:256px;z-index:5;">
+        <ul id="CssMenu1" role="menubar" class="nav">
+          <li role="menuitem" class="nav-item firstmain">
+            <a class="nav-link" href="" target="_self">Главная</a>
+          </li>
+          <li role="menuitem" class="nav-item">
+            <a class="nav-link" href="page1.html" target="_self">Направление&nbsp;деятельности</a>
+          </li>
+          <li role="menuitem" class="nav-item">
+            <a class="nav-link" href="about.html" target="_self">Контактная&nbsp;информация</a>
+          </li>
+          <li role="menuitem" class="nav-item">
+            <a class="nav-link" href="page4.html" target="_self">Услуги</a>
+          </li>
+        </ul>
+      </div>
+      <div class="block">
+          <div class="cont-image"><a href=""><img class="image" src="images/pic1.jpg"></a></div>
+          <div class="cont-image"><a href=""><img class="image" src="images/pic2.jpg"></a></div>
+          <div class="cont-image"><a href=""><img class="image" src="images/pic3.jpg"></a></div>
+          <div class="block-content">
+          <div class="block-footer"></div>
+        </div>
+      </div>
+      <div class="block">
+        ...
+      </div>
+    </div> <!-- конец div class="blocks-list"-->
+    <aside>
+          <!-- NOTE: Search result -->
+          <div id="search_result"></div>
+
+      <div class="widget">
+        <h3 class="widget-title">Услуги</h3>
+        <ul class="widget-category-list">
+          <li><a href="">Установка и ремонт сантехники</a></li>
+          <li><a href="">Штукатурные работы</a></li>
+          <li><a href="">Облицовочные работы</a></li>
+          <li><a href="">Возведение коробок</a></li>
+          <li><a href="">Евроремонт</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3 class="widget-title"><a href="news.html">Новости отрасли</a></h3>
+        <h3 class="widget-title">Новости компании</h3>
+        <h3 class="widget-title">Новое в строительстве</h3>
+        <ul class="widget-blocks-list">
+          <li>
+            <div class="cont-image-small">
+              <a href=""><img src=""></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3 class="widget-title">Подписка на рассылку</h3>
+        <form action="" method="block" id="subscribe">
+          <input type="email" name="email" placeholder="Ваш email" required>
+          <button type="submit"><i class="fa fa-paper-plane-o"></i></button>
+        </form>
+      </div>
+    </aside>
+  </div> 
+  <footer>
+    <div class="container">
+      <div class="footer-col"><span>© 2022</span></div>
+      <div class="footer-col">
+      </div>
+      <div class="footer-col">
+        <a href="mailto:admin@yoursite.ru">Написать письмо</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    $('.nav-toggle').on('click', function () {
+      $('#menu').toggleClass('active');
+    });
+  </script>
+</body>
+
+</html>
